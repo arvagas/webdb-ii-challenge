@@ -1,5 +1,7 @@
 const express = require('express')
 
+const carsRoute = require('./carsRoute')
+
 const server = express()
 server.use(express.json())
 
@@ -11,6 +13,9 @@ function logger(req, res, next) {
 
 // @@@@@@@@@@ Global Middleware @@@@@@@@@@
 server.use(logger)
+
+// Route handling
+server.use('/api/cars', carsRoute)
 
 // Api Test
 server.get('/', (req, res) => {
