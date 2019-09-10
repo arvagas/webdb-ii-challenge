@@ -26,4 +26,21 @@ router.post('/', (req, res) => {
     .catch(err => res.status(500).json({ message: 'Failed to add new car' }))
 })
 
+// @@@@@@@@@@ DELETE request @@@@@@@@@@
+router.delete('/:id', (req, res) => {
+    const { id } = req.params
+
+    db('cars')
+    .where({ id })
+    .first()
+    .then(remCar => {
+        db('cars')
+        .where({ id })
+        .del()
+        .then(count => res.json(remCar))
+        .catch(err => res.status(500).json({ message: 'Failed to delete car' }))
+    })
+    .catch(err => res.status(500).json({ message: 'Failed to retrieve car' }))
+})
+
 module.exports = router
